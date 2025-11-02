@@ -14,7 +14,7 @@ import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingEntity;
 import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingNumberEntity;
 
 import pt.psoft.g1.psoftg1.readermanagement.infraestructure.repositories.impl.Mapper.ReaderDetailsEntityMapper;
-import pt.psoft.g1.psoftg1.shared.model.SQL.NameEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.NameEntity;
 
 @Mapper(componentModel = "spring", uses = { ReaderDetailsEntityMapper.class, BookEntityMapper.class})
 public interface LendingEntityMapper

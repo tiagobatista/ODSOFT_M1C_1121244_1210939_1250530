@@ -28,7 +28,7 @@ odsoft 2025/2026 repo of students:
 - **[Redis Quick Reference](random/REDIS_QUICK_REFERENCE.md)** - Redis configuration and usage guide
 
 ### Architecture & Design
-- **[ADD Report](arcsoft-2025/P1/Documentation/Report/report-p1.md)** - Architecture Decision Document
+- **[ADD Report](arcsof/P1/Documentation/Report/report-p1.md)** - Architecture Decision Document
 - **[Implementation Summary](random/IMPLEMENTATION_SUMMARY.md)** - Technical implementation details
 
 ---

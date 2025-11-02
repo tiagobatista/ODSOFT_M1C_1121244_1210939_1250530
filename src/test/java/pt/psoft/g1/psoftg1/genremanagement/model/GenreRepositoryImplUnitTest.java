@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import pt.psoft.g1.psoftg1.bookmanagement.services.GenreBookCountDTO;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.Mapper.GenreEntityMapper;
-import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.SQL.GenreRepositoryImpl;
+import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.sql.GenreRepositoryImpl;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.SpringDataGenreRepository;
 import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 

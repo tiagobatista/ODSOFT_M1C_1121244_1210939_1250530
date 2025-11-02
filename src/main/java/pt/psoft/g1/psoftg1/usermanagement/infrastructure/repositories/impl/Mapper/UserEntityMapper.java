@@ -1,13 +1,12 @@
 package pt.psoft.g1.psoftg1.usermanagement.infrastructure.repositories.impl.Mapper;
 
 import org.springframework.stereotype.Component;
-import pt.psoft.g1.psoftg1.shared.model.Name;
 import pt.psoft.g1.psoftg1.usermanagement.model.Librarian;
 import pt.psoft.g1.psoftg1.usermanagement.model.Reader;
 import pt.psoft.g1.psoftg1.usermanagement.model.User;
-import pt.psoft.g1.psoftg1.usermanagement.model.SQL.LibrarianEntity;
-import pt.psoft.g1.psoftg1.usermanagement.model.SQL.ReaderEntity;
-import pt.psoft.g1.psoftg1.usermanagement.model.SQL.UserEntity;
+import pt.psoft.g1.psoftg1.usermanagement.model.sql.LibrarianEntity;
+import pt.psoft.g1.psoftg1.usermanagement.model.sql.ReaderEntity;
+import pt.psoft.g1.psoftg1.usermanagement.model.sql.UserEntity;
 
 @Component
 public class UserEntityMapper {

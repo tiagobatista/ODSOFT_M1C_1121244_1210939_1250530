@@ -1,0 +1,13 @@
+{
+  "title": "Redis Test Book",
+  "isbn": "9781234567890",
+  "genre": "Technology",
+  "description": "A test book to demonstrate Redis caching functionality",
+  "authors": [
+    {
+      "name": "Cache Master",
+      "bio": "Expert in caching strategies"
+    }
+  ]
+}
+

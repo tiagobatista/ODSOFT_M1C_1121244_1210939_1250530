@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.Mapper.BookEntityMapper;
-import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SQL.BookRepositoryImpl;
+import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.sql.BookRepositoryImpl;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SpringDataBookRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;

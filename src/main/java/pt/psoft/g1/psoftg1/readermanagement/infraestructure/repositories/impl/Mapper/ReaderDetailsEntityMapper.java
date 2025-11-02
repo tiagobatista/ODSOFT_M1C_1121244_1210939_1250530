@@ -12,8 +12,8 @@ import pt.psoft.g1.psoftg1.readermanagement.model.sql.BirthDateEntity;
 import pt.psoft.g1.psoftg1.readermanagement.model.sql.PhoneNumberEntity;
 import pt.psoft.g1.psoftg1.readermanagement.model.sql.ReaderDetailsEntity;
 import pt.psoft.g1.psoftg1.readermanagement.model.sql.ReaderNumberEntity;
-import pt.psoft.g1.psoftg1.shared.model.SQL.NameEntity;
-import pt.psoft.g1.psoftg1.shared.model.SQL.PhotoEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.NameEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.PhotoEntity;
 import pt.psoft.g1.psoftg1.usermanagement.infrastructure.repositories.impl.Mapper.UserEntityMapper;
 
 /**

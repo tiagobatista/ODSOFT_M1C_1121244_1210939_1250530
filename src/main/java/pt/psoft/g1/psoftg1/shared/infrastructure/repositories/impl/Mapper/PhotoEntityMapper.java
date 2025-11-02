@@ -2,7 +2,7 @@ package pt.psoft.g1.psoftg1.shared.infrastructure.repositories.impl.Mapper;
 
 import org.mapstruct.Mapper;
 import pt.psoft.g1.psoftg1.shared.model.Photo;
-import pt.psoft.g1.psoftg1.shared.model.SQL.PhotoEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.PhotoEntity;
 
 import java.nio.file.Paths;
 

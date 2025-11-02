@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
-import pt.psoft.g1.psoftg1.shared.model.SQL.EntityWithPhotoEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.EntityWithPhotoEntity;
 
 import java.util.ArrayList;
 import java.util.List;

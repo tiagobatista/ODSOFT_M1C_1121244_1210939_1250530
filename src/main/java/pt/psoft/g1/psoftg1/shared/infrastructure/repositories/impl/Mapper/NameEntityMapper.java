@@ -2,7 +2,7 @@ package pt.psoft.g1.psoftg1.shared.infrastructure.repositories.impl.Mapper;
 
 import org.mapstruct.Mapper;
 import pt.psoft.g1.psoftg1.shared.model.Name;
-import pt.psoft.g1.psoftg1.shared.model.SQL.NameEntity;
+import pt.psoft.g1.psoftg1.shared.model.sql.NameEntity;
 
 @Mapper(componentModel = "spring")
 public interface NameEntityMapper {

@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.Mapper.AuthorEntityMapper;
-import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SQL.AuthorRepositoryImpl;
+import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.sql.AuthorRepositoryImpl;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SpringDataAuthorRepository;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;

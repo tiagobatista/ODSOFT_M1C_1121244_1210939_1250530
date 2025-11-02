@@ -182,7 +182,7 @@ This index provides a comprehensive map of all documentation in this project.
 | **Enable Redis caching** | [REDIS_QUICK_REFERENCE.md](REDIS_QUICK_REFERENCE.md) |
 | **Run configuration tests** | [CONFIGURATION_TESTS_SUMMARY.md](CONFIGURATION_TESTS_SUMMARY.md) |
 | **Fix 403 Forbidden error** | [QUICK_403_FIX.md](QUICK_403_FIX.md) |
-| **Understand architecture** | [ADD Report](../arcsoft-2025/P1/Documentation/Report/report-p1.md) |
+| **Understand architecture** | [ADD Report](../arcsof/P1/Documentation/Report/report-p1.md) |
 | **See implementation status** | [FINAL_STATUS.md](FINAL_STATUS.md) |
 | **Get valid credentials** | [CORRECT_CREDENTIALS.md](CORRECT_CREDENTIALS.md) |
 | **Learn about API endpoints** | [ENDPOINTS_GUIDE.md](ENDPOINTS_GUIDE.md) |
