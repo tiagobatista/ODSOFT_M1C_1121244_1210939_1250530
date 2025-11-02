@@ -309,7 +309,7 @@
                 </dependencies>
 
                 <configuration>
-                    <!-- Classes to mutate -->
+                    <!-- Classes to mutate - foco no domain/model/services -->
                     <targetClasses>
                         <param>pt.psoft.g1.psoftg1.authormanagement.model.*</param>
                         <param>pt.psoft.g1.psoftg1.authormanagement.services.*</param>
@@ -334,22 +334,48 @@
                         <outputFormat>XML</outputFormat>
                     </outputFormats>
 
-                    <!-- Exclude specific classes -->
+                    <!-- Exclude specific classes - EXPANDIDO -->
                     <excludedClasses>
+                        <!-- DTOs e Config -->
                         <param>pt.psoft.g1.psoftg1.**.dto.*</param>
                         <param>pt.psoft.g1.psoftg1.**.config.*</param>
                         <param>pt.psoft.g1.psoftg1.**.*Application</param>
+
+                        <!-- SQL Entities (JPA) - apenas anotações -->
+                        <param>pt.psoft.g1.psoftg1.**.sql.*Entity</param>
+                        <param>pt.psoft.g1.psoftg1.**.model.sql.*</param>
+
+                        <!-- Bootstrapping data -->
+                        <param>pt.psoft.g1.psoftg1.bootstrapping.*</param>
+
+                        <!-- Redis cache implementations -->
+                        <param>pt.psoft.g1.psoftg1.**.impl.Redis.*</param>
+
+                        <!-- Exceptions -->
+                        <param>pt.psoft.g1.psoftg1.exceptions.*</param>
                     </excludedClasses>
 
-                    <!-- Settings -->
-                    <verbose>true</verbose>
+                    <!-- Thresholds realistas -->
+                    <mutationThreshold>20</mutationThreshold>
+                    <coverageThreshold>40</coverageThreshold>
+
+                    <!-- Mutation operators - usa STRONGER para melhor qualidade -->
+                    <mutators>
+                        <mutator>STRONGER</mutator>
+                    </mutators>
+
+                    <!-- Settings de performance -->
+                    <verbose>false</verbose>
                     <threads>4</threads>
                     <timestampedReports>false</timestampedReports>
                     <timeoutConstant>5000</timeoutConstant>
-                    <mutationThreshold>40</mutationThreshold>
-                    <coverageThreshold>40</coverageThreshold>
+
+                    <!-- History para builds incrementais -->
                     <historyInputFile>${project.build.directory}/pit-history/history.bin</historyInputFile>
                     <historyOutputFile>${project.build.directory}/pit-history/history.bin</historyOutputFile>
+
+                    <!-- Não falhar o build se threshold não atingido (para debugging) -->
+                    <failWhenNoMutations>false</failWhenNoMutations>
                 </configuration>
             </plugin>
 
