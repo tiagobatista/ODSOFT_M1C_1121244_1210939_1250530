@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.bookmanagement.model.SQL;
+package pt.psoft.g1.psoftg1.bookmanagement.model.sql;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 import pt.psoft.g1.psoftg1.shared.model.SQL.EntityWithPhotoEntity;
 
 import java.util.ArrayList;

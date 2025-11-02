@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pt.psoft.g1.psoftg1.lendingmanagement.infrastructure.repositories.impl.Mapper.FineEntityMapper;
 import pt.psoft.g1.psoftg1.lendingmanagement.model.Fine;
-import pt.psoft.g1.psoftg1.lendingmanagement.model.SQL.FineEntity;
+import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.FineEntity;
 import pt.psoft.g1.psoftg1.lendingmanagement.repositories.FineRepository;
 
 import java.util.List;

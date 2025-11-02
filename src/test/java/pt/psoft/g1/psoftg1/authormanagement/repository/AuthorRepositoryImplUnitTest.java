@@ -15,10 +15,9 @@ import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.Map
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SQL.AuthorRepositoryImpl;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SpringDataAuthorRepository;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;

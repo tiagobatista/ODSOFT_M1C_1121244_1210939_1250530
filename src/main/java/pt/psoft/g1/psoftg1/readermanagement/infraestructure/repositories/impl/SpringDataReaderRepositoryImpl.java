@@ -5,9 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import pt.psoft.g1.psoftg1.readermanagement.model.ReaderDetails;
-import pt.psoft.g1.psoftg1.readermanagement.model.SQL.ReaderDetailsEntity;
-import pt.psoft.g1.psoftg1.readermanagement.repositories.ReaderRepository;
+import pt.psoft.g1.psoftg1.readermanagement.model.sql.ReaderDetailsEntity;
 
 import org.springframework.data.domain.Pageable;
 import pt.psoft.g1.psoftg1.readermanagement.services.ReaderBookCountDTO;

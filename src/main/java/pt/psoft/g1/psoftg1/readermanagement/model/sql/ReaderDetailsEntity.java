@@ -1,11 +1,11 @@
-package pt.psoft.g1.psoftg1.readermanagement.model.SQL;
+package pt.psoft.g1.psoftg1.readermanagement.model.sql;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import pt.psoft.g1.psoftg1.shared.model.SQL.EntityWithPhotoEntity;
 import pt.psoft.g1.psoftg1.shared.model.SQL.PhotoEntity;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 import pt.psoft.g1.psoftg1.usermanagement.model.SQL.ReaderEntity;
 
 import java.util.ArrayList;

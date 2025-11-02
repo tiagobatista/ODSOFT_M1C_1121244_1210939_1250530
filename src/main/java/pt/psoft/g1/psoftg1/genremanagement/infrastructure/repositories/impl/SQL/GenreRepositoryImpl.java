@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +25,12 @@ import pt.psoft.g1.psoftg1.bookmanagement.services.GenreBookCountDTO;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.Mapper.GenreEntityMapper;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.SpringDataGenreRepository;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 import pt.psoft.g1.psoftg1.genremanagement.repositories.GenreRepository;
 import pt.psoft.g1.psoftg1.genremanagement.services.GenreLendingsDTO;
 import pt.psoft.g1.psoftg1.genremanagement.services.GenreLendingsPerMonthDTO;
-import pt.psoft.g1.psoftg1.lendingmanagement.model.SQL.LendingEntity;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
+import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
 
 @Repository
 @Profile("sql-redis")

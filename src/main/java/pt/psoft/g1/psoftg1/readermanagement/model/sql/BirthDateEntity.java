@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.readermanagement.model.SQL;
+package pt.psoft.g1.psoftg1.readermanagement.model.sql;
 
 import jakarta.persistence.*;
 import lombok.Getter;

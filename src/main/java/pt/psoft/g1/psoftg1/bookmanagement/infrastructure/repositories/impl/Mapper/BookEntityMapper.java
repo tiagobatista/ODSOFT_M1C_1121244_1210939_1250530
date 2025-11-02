@@ -5,10 +5,10 @@ import org.mapstruct.Mapping;
 
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.Mapper.AuthorEntityMapper;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.DescriptionEntity;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.IsbnEntity;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.TitleEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.DescriptionEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.IsbnEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.TitleEntity;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.Mapper.GenreEntityMapper;
 import pt.psoft.g1.psoftg1.shared.infrastructure.repositories.impl.Mapper.PhotoEntityMapper;
 

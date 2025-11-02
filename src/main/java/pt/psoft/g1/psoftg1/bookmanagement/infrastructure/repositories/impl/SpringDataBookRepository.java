@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.IsbnEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.IsbnEntity;
 
 import java.time.LocalDate;
 import java.util.List;

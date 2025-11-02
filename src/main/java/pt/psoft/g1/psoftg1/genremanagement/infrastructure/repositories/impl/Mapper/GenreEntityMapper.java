@@ -2,7 +2,7 @@ package pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.Map
 
 import org.mapstruct.Mapper;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 
 /**
  * Mapper para Genre ↔ GenreEntity

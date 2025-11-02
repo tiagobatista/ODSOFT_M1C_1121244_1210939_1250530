@@ -4,7 +4,7 @@ package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.Ma
 
 import org.mapstruct.Mapper;
 import pt.psoft.g1.psoftg1.authormanagement.model.Bio;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.BioEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.BioEntity;
 
 @Mapper(componentModel = "spring")
 public interface BioEntityMapper

@@ -4,12 +4,10 @@ package pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SQL;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
-import org.springframework.util.StringUtils;
 import org.springframework.util.StringUtils;
 
 import jakarta.persistence.EntityManager;
@@ -19,16 +17,16 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SQL.AuthorRepositoryImpl;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.Mapper.BookEntityMapper;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SpringDataBookRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
 import pt.psoft.g1.psoftg1.bookmanagement.services.SearchBooksQuery;
 import pt.psoft.g1.psoftg1.genremanagement.infrastructure.repositories.impl.SQL.GenreRepositoryImpl;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.repositories.BookRepository;
 
 import java.time.LocalDate;

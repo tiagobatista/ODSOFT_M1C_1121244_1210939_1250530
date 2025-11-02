@@ -1,19 +1,17 @@
 package pt.psoft.g1.psoftg1.lendingmanagement.infrastructure.repositories.impl.Mapper;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Named;
 
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.authormanagement.model.Bio;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.Mapper.BookEntityMapper;
 import pt.psoft.g1.psoftg1.lendingmanagement.model.Lending;
 import pt.psoft.g1.psoftg1.lendingmanagement.model.LendingNumber;
-import pt.psoft.g1.psoftg1.lendingmanagement.model.SQL.LendingEntity;
-import pt.psoft.g1.psoftg1.lendingmanagement.model.SQL.LendingNumberEntity;
+import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingEntity;
+import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingNumberEntity;
 
 import pt.psoft.g1.psoftg1.readermanagement.infraestructure.repositories.impl.Mapper.ReaderDetailsEntityMapper;
 import pt.psoft.g1.psoftg1.shared.model.SQL.NameEntity;

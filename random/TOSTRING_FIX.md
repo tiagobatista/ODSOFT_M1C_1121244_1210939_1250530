@@ -12,11 +12,11 @@ When calling the API endpoint `/api/books/top5`, the JSON response showed **obje
 
 ```json
 {
-    "title": "pt.psoft.g1.psoftg1.bookmanagement.model.SQL.TitleEntity@4237e916",
-    "authors": ["pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity@1570e79d"],
-    "genre": "pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity@27053886",
-    "description": "pt.psoft.g1.psoftg1.bookmanagement.model.SQL.DescriptionEntity@68f2c37c",
-    "isbn": "pt.psoft.g1.psoftg1.bookmanagement.model.SQL.IsbnEntity@1ac246ee"
+    "title": "pt.psoft.g1.psoftg1.bookmanagement.model.sql.TitleEntity@4237e916",
+    "authors": ["pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity@1570e79d"],
+    "genre": "pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity@27053886",
+    "description": "pt.psoft.g1.psoftg1.bookmanagement.model.sql.DescriptionEntity@68f2c37c",
+    "isbn": "pt.psoft.g1.psoftg1.bookmanagement.model.sql.IsbnEntity@1ac246ee"
 }
 ```
 
@@ -98,8 +98,8 @@ mvn spring-boot:run
 ### Before (Broken):
 ```json
 {
-    "title": "pt.psoft.g1.psoftg1.bookmanagement.model.SQL.TitleEntity@4237e916",
-    "isbn": "pt.psoft.g1.psoftg1.bookmanagement.model.SQL.IsbnEntity@1ac246ee"
+    "title": "pt.psoft.g1.psoftg1.bookmanagement.model.sql.TitleEntity@4237e916",
+    "isbn": "pt.psoft.g1.psoftg1.bookmanagement.model.sql.IsbnEntity@1ac246ee"
 }
 ```
 

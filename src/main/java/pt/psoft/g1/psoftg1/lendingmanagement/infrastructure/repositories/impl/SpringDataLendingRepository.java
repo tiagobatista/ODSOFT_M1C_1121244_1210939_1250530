@@ -3,7 +3,7 @@ package pt.psoft.g1.psoftg1.lendingmanagement.infrastructure.repositories.impl;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import pt.psoft.g1.psoftg1.lendingmanagement.model.SQL.LendingEntity;
+import pt.psoft.g1.psoftg1.lendingmanagement.model.sql.LendingEntity;
 
 import java.util.*;
 

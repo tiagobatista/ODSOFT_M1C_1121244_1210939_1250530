@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import pt.psoft.g1.psoftg1.bookmanagement.services.GenreBookCountDTO;
-import pt.psoft.g1.psoftg1.genremanagement.model.SQL.GenreEntity;  // ← MUDAR!
+import pt.psoft.g1.psoftg1.genremanagement.model.sql.GenreEntity;  // ← MUDAR!
 
 import java.util.*;
 

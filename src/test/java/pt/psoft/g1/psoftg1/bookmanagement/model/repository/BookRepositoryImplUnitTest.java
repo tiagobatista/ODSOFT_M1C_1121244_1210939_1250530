@@ -14,9 +14,8 @@ import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.Mappe
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SQL.BookRepositoryImpl;
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.repositories.impl.SpringDataBookRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
-import pt.psoft.g1.psoftg1.bookmanagement.services.SearchBooksQuery;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 
 import jakarta.persistence.EntityManager;

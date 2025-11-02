@@ -1,11 +1,8 @@
-package pt.psoft.g1.psoftg1.authormanagement.model.SQL;
+package pt.psoft.g1.psoftg1.authormanagement.model.sql;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import pt.psoft.g1.psoftg1.shared.model.SQL.EntityWithPhotoEntity;

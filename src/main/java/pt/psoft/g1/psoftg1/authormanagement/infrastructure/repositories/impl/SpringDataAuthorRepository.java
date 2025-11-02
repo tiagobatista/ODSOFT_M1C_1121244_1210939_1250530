@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView;
 
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
-import pt.psoft.g1.psoftg1.shared.model.SQL.NameEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 
 import java.util.List;
 import java.util.Optional;

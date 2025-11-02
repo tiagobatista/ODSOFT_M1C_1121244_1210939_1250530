@@ -1,12 +1,12 @@
-package pt.psoft.g1.psoftg1.lendingmanagement.model.SQL;
+package pt.psoft.g1.psoftg1.lendingmanagement.model.sql;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import pt.psoft.g1.psoftg1.bookmanagement.model.SQL.BookEntity;
-import pt.psoft.g1.psoftg1.readermanagement.model.SQL.ReaderDetailsEntity;
+import pt.psoft.g1.psoftg1.bookmanagement.model.sql.BookEntity;
+import pt.psoft.g1.psoftg1.readermanagement.model.sql.ReaderDetailsEntity;
 
 import java.time.LocalDate;
 

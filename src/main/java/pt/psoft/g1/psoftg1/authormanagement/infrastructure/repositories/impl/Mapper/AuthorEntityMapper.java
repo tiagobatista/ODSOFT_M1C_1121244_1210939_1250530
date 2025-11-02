@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 
 import pt.psoft.g1.psoftg1.shared.infrastructure.repositories.impl.Mapper.NameEntityMapper;
 import pt.psoft.g1.psoftg1.shared.infrastructure.repositories.impl.Mapper.PhotoEntityMapper;

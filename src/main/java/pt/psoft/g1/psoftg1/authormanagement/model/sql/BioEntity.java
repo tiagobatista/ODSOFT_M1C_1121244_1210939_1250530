@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.authormanagement.model.SQL;
+package pt.psoft.g1.psoftg1.authormanagement.model.sql;
 
 
 import jakarta.persistence.Column;

@@ -1,7 +1,6 @@
 package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SQL;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,7 @@ import pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.Mapper.AuthorEntityMapper;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SpringDataAuthorRepository;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
-import pt.psoft.g1.psoftg1.authormanagement.model.SQL.AuthorEntity;
+import pt.psoft.g1.psoftg1.authormanagement.model.sql.AuthorEntity;
 import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 
 import java.util.ArrayList;

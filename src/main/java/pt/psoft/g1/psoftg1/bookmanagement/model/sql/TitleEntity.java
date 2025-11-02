@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.bookmanagement.model.SQL;
+package pt.psoft.g1.psoftg1.bookmanagement.model.sql;
 
 
 
