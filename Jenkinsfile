@@ -251,12 +251,12 @@ pipeline {
                     sh '''
                         echo "🏥 Checking application health..."
                         for i in {1..12}; do
-                            if docker exec psoft-g1-dev curl -f http://localhost:8080/actuator/health 2>/dev/null; then
+                            if docker exec psoft-g1-dev wget -q -O- http://localhost:8080/actuator/health 2>/dev/null | grep -q '"status":"UP"'; then
                                 echo "✅ Application is healthy!"
 
                                 echo "🔍 Testing API endpoints..."
-                                docker exec psoft-g1-dev curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
-                                docker exec psoft-g1-dev curl -f http://localhost:8080/actuator/info || echo "⚠️ Actuator info not accessible"
+                                docker exec psoft-g1-dev wget -q -O- http://localhost:8080/api-docs >/dev/null 2>&1 && echo "✅ API docs accessible" || echo "⚠️ API docs not accessible"
+                                docker exec psoft-g1-dev wget -q -O- http://localhost:8080/actuator/info >/dev/null 2>&1 && echo "✅ Actuator info accessible" || echo "⚠️ Actuator info not accessible"
 
                                 echo "✅ QG2 PASSED - DEV environment verified"
                                 exit 0
@@ -320,9 +320,9 @@ pipeline {
                 script {
                     sh '''
                         for i in {1..12}; do
-                            if curl -f http://localhost:8082/actuator/health 2>/dev/null; then
+                            if docker exec psoft-g1-staging curl -f http://localhost:8080/actuator/health 2>/dev/null; then
                                 echo "✅ STAGING is healthy!"
-                                curl -f http://localhost:8082/api-docs || echo "⚠️ API docs not accessible"
+                                docker exec psoft-g1-staging curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
                                 echo "✅ QG3 PASSED"
                                 exit 0
                             fi
@@ -382,9 +382,9 @@ pipeline {
                 script {
                     sh '''
                         for i in {1..15}; do
-                            if curl -f http://localhost:8083/actuator/health 2>/dev/null; then
+                            if docker exec psoft-g1-prod curl -f http://localhost:8080/actuator/health 2>/dev/null; then
                                 echo "✅ PRODUCTION verified!"
-                                curl -f http://localhost:8083/api-docs
+                                docker exec psoft-g1-prod curl -f http://localhost:8080/api-docs
                                 echo "🎉 QG4 PASSED"
                                 exit 0
                             fi
