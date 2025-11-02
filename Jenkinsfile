@@ -174,9 +174,7 @@ pipeline {
 
         // Stage 6: Build Docker Image
         stage('6. Build Docker Image') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🐳 Stage 6: Building Docker image...'
                 script {
@@ -205,9 +203,7 @@ pipeline {
 
         // Stage 7: Deploy to DEV
         stage('7. Deploy to DEV') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🚀 Stage 7: Deploying to DEV environment...'
                 script {
@@ -241,9 +237,7 @@ pipeline {
 
         // Stage 8: System Tests DEV (QG2)
         stage('8. System Tests DEV - QG2') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🧪 Stage 8: Running system tests on DEV...'
                 script {
@@ -278,9 +272,7 @@ pipeline {
 
         // Stage 9: Deploy to STAGING
         stage('9. Deploy to STAGING') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🚀 Stage 9: Deploying to STAGING environment...'
                 script {
@@ -311,9 +303,7 @@ pipeline {
 
         // Stage 10: System Tests STAGING (QG3)
         stage('10. System Tests STAGING - QG3') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🧪 Stage 10: Running system tests on STAGING...'
                 script {
@@ -337,9 +327,7 @@ pipeline {
 
         // Stage 11: Deploy to PROD
         stage('11. Deploy to PROD') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '🚀 Stage 11: Deploying to PRODUCTION...'
                 script {
@@ -374,9 +362,7 @@ pipeline {
 
         // Stage 12: Verify PROD (QG4)
         stage('12. Verify PROD - QG4') {
-            when {
-                expression { env.DOCKER_AVAILABLE == 'true' }
-            }
+
             steps {
                 echo '✅ Stage 12: Verifying PRODUCTION...'
                 script {
