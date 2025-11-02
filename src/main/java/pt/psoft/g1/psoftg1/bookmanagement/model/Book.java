@@ -116,4 +116,13 @@ public class Book extends EntityWithPhoto
 
         setPhotoInternal((String)null);
     }
+
+    public void setPhoto(String photoURI) {
+        setPhotoInternal(photoURI);
+    }
+
+    protected Book() {
+        this.version = 0L;
+    }
+
 }

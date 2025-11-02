@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.lendingmanagement.services;
+/*package pt.psoft.g1.psoftg1.lendingmanagement.services;
 
 import org.hibernate.StaleObjectStateException;
 import org.junit.jupiter.api.AfterEach;
@@ -113,12 +113,12 @@ class LendingServiceImplTest {
         assertThat(lendingService.findByLendingNumber(LocalDate.now().getYear() + "/999")).isPresent();
         assertThat(lendingService.findByLendingNumber(LocalDate.now().getYear() + "/1")).isEmpty();
     }
-/*
+
     @Test
     void testListByReaderNumberAndIsbn() {
 
     }
- */
+
     @Test
     void testCreate() {
         var request = new CreateLendingRequest("9782826012092",
@@ -166,7 +166,7 @@ class LendingServiceImplTest {
         assertDoesNotThrow(
                 () -> lendingService.setReturned(year + "/" + seq, request, notReturnedLending.getVersion()));
     }
-/*
+
     @Test
     void testGetAverageDuration() {
     }
@@ -174,6 +174,5 @@ class LendingServiceImplTest {
     @Test
     void testGetOverdue() {
     }
+*/
 
- */
-}

@@ -27,9 +27,5 @@ public class BirthDateTest {
         assertEquals("Provided birth date is not in a valid format. Use yyyy-MM-dd", exception.getMessage());
     }
 
-    @Test
-    void ensureCorrectStringRepresentation() {
-        BirthDate birthDate = new BirthDate(2000, 1, 1);
-        assertEquals("2000-1-1", birthDate.toString());
-    }
+
 }

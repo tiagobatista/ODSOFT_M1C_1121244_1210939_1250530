@@ -14,16 +14,8 @@ pipeline {
     }
 
     stages {
-        // Stage 1: Checkout
-        stage('1. Checkout Code') {
-            steps {
-                echo '🔄 Stage 1: Checking out code from repository...'
-                checkout scm
-            }
-        }
-
-        // Stage 2: Build & Package
-        stage('2. Build & Package') {
+        // Stage 1: Build & Package
+        stage('1. Build & Package') {
             steps {
                 echo '🔨 Stage 2: Building and packaging application...'
                 sh 'mvn clean package -DskipTests -B'
@@ -39,10 +31,10 @@ pipeline {
             }
         }
 
-        // Stage 3: Unit & Integration Tests
-        stage('3. Unit & Integration Tests') {
+        // Stage 2: Unit & Integration Tests
+        stage('2. Unit & Integration Tests') {
             steps {
-                echo '🧪 Stage 3: Running unit and integration tests...'
+                echo '🧪 Stage 2: Running unit and integration tests...'
                 sh 'mvn test -B'
             }
             post {
@@ -61,10 +53,10 @@ pipeline {
             }
         }
 
-        // Stage 4: SonarQube Analysis (QG1)
-        stage('4. SonarQube Analysis - QG1') {
+        // Stage 3: SonarQube Analysis (QG1)
+        stage('3. SonarQube Analysis - QG1') {
             steps {
-                echo '📊 Stage 4: Running SonarQube static code analysis...'
+                echo '📊 Stage 3: Running SonarQube static code analysis...'
                 script {
                     // Verificar conectividade com SonarQube
                     sh '''
@@ -164,7 +156,7 @@ pipeline {
                         docker run -d \
                             --name ${APP_NAME}-dev \
                             --network ${DOCKER_NETWORK} \
-                            -p 8081:8080 \
+                            -p 8080:8080 \
                             -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
@@ -189,7 +181,7 @@ pipeline {
                         # Health check
                         echo "🏥 Checking application health..."
                         for i in {1..5}; do
-                            if curl -f http://localhost:8081/actuator/health; then
+                            if curl -f http://localhost:8080/actuator/health; then
                                 echo "✅ Application is healthy!"
                                 break
                             fi
@@ -199,8 +191,8 @@ pipeline {
 
                         # Basic endpoint tests
                         echo "🔍 Testing API endpoints..."
-                        curl -f http://localhost:8081/api-docs || echo "⚠️ API docs not accessible"
-                        curl -f http://localhost:8081/actuator/info || echo "⚠️ Actuator info not accessible"
+                        curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
+                        curl -f http://localhost:8080/actuator/info || echo "⚠️ Actuator info not accessible"
                     '''
                 }
             }
@@ -241,6 +233,8 @@ pipeline {
                 }
             }
         }
+
+
 
 
 

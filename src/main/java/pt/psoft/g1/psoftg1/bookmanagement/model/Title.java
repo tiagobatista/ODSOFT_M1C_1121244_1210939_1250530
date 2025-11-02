@@ -9,7 +9,7 @@ public class Title {
     @Getter
     private String title;
 
-    protected Title() {
+    public Title() {
     }
 
     public Title(String title) {
