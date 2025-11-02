@@ -338,7 +338,7 @@ pipeline {
                             --name ${APP_NAME}-staging \
                             --network ${DOCKER_NETWORK} \
                             -p 8082:8080 \
-                            -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
+                            -e SPRING_PROFILES_ACTIVE=sql-redis \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
