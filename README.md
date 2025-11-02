@@ -1,4 +1,4 @@
-# MEI-odsoft-2025-2026-1191577-1210939-1250530
+# MEI-odsoft-2025-2026
 
 odsoft 2025/2026 repo of students:
 
