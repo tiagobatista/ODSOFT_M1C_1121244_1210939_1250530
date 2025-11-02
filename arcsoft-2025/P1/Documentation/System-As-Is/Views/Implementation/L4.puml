@@ -1,0 +1,38 @@
+@startuml "Implementation View Level 4"
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 12
+}
+
+skinparam shadowing false
+
+' BookManagement package with internal structure
+package "Bookmanagement" as BookMgmt {
+
+    package "API" as API {
+    }
+
+    package "Services" as Services {
+    }
+
+    package "Model" as Model {
+    }
+
+    package "Repositories" as Repositories {
+    }
+
+    package "Infrastructure.repositories.impl" as InfraRepoImpl {
+    }
+
+    ' Dependencies
+    API --> Services
+    Services --> Model
+    Services ..> Repositories
+    Repositories ..> Model
+    Repositories --> InfraRepoImpl
+}
+
+caption Implementation View (Level 4)
+@enduml

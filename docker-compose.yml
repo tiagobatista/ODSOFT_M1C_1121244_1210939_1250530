@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # Jenkins Server
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Dhudson.footerURL=http://localhost:8080
+    networks:
+      - ci-network
+    restart: unless-stopped
+
+  # SonarQube
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      - SONAR_JDBC_URL=jdbc:postgresql://sonarqube-db:5432/sonardb
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    depends_on:
+      - sonarqube-db
+    networks:
+      - ci-network
+    restart: unless-stopped
+
+  # PostgreSQL para SonarQube
+  sonarqube-db:
+    image: postgres:15-alpine
+    container_name: sonarqube-db
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonardb
+    volumes:
+      - sonarqube_db:/var/lib/postgresql/data
+    networks:
+      - ci-network
+    restart: unless-stopped
+
+  # Redis (para a aplicação quando necessário)
+  # Comentado porque já existe um Redis a correr
+  # Usa o Redis existente em localhost:6379
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - ci-network
+  #   restart: unless-stopped
+  #   command: redis-server --appendonly yes
+
+volumes:
+  jenkins_home:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  sonarqube_db:
+  # redis_data:  # Comentado porque usamos o Redis existente
+
+networks:
+  ci-network:
+    driver: bridge

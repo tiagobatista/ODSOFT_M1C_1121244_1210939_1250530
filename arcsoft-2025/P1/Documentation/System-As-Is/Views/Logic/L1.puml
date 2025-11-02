@@ -1,0 +1,30 @@
+@startuml "Logic View (Level 1)"
+!define LIGHTBLUE #87CEFA
+
+' Styling
+skinparam componentStyle uml2
+skinparam backgroundColor white
+skinparam componentBackgroundColor LIGHTBLUE
+skinparam interfaceBackgroundColor LIGHTBLUE
+
+' The central component
+[Library Management System] as LMS
+
+' The REST API interface
+() "REST API" as API
+
+' Connect API to LMS
+API - LMS
+
+note right of LMS
+  Provides CRUD operations for:
+  - Books
+  - Genres
+  - Authors
+  - Readers
+  - Lendings
+end note
+
+caption Logic View (Level 1)
+
+@enduml

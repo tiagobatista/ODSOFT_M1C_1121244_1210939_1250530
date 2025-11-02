@@ -1,0 +1,51 @@
+@startuml "Logic View - Level 2 (System-to-be)"
+' Layout + look
+top to bottom direction
+skinparam componentStyle uml2
+skinparam linetype ortho
+
+skinparam component {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 12
+}
+
+skinparam interface {
+    BackgroundColor White
+    BorderColor Black
+}
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+' External interface at top
+interface "Rest API" as RestAPI
+
+' System boundary - Main container with stereotype
+package "<<component>>\nLibrary Management System (BackEnd)" as LMS {
+
+    ' Internal components with stereotypes
+    component "<<component>>\nBackEnd" as Backend
+    component "<<component>>\nDataBase" as Database
+
+    ' Internal connection
+    Backend --> Database : API DB
+}
+
+' External APIs consumed by the system
+interface "ISBN Retrieval API" as IsbnAPI
+interface "DB API" as DbAPI
+
+' External connection from Rest API to system
+RestAPI --> LMS
+
+' Backend consumes ISBN Retrieval API
+Backend ..> IsbnAPI
+
+' Database consumes DB API
+Database ..> DbAPI
+
+caption Logic View - Level 2 (System-to-be)
+@enduml

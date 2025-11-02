@@ -1,0 +1,33 @@
+@startuml "Process View Level 1"
+
+skinparam participant {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+skinparam actor {
+    BackgroundColor White
+    BorderColor Black
+}
+
+skinparam sequence {
+    ArrowColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor LightBlue
+}
+
+actor Librarian
+participant "LMS API" as API
+participant "LMS DB" as DB
+
+Librarian -> API : 2: Lend a book
+activate API
+API -> DB : 2.1: Create loan
+activate DB
+DB --> API : 2.2: Loan created
+deactivate DB
+API --> Librarian : 2.3: Book lent
+deactivate API
+
+caption Process View for Librarian Lending Process (Level 1)
+@enduml

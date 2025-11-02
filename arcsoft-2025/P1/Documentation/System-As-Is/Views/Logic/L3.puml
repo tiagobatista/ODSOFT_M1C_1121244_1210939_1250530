@@ -1,0 +1,68 @@
+@startuml "Logic View Level 3"
+!define RECTANGLE class
+top to bottom direction
+
+skinparam component {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 11
+}
+
+skinparam interface {
+    BackgroundColor White
+    BorderColor Black
+}
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+skinparam rectangle {
+    BorderColor Black
+}
+
+' External interfaces
+interface "LMS REST API" as LMSAPI
+interface "DB API" as DBAPI
+
+' Main Backend container
+package "<<component>>\nBackend" as Backend {
+
+    ' Frameworks and Drivers Layer
+    rectangle "Frameworks and Drivers Layer" #LightCyan {
+        component "<<component>>\nRouter" as Router
+        component "<<component>>\nDriver" as Driver
+    }
+
+    ' Interface Adapters Layer
+    rectangle "Interface Adapters Layer" #LightGreen {
+        component "<<component>>\nController" as Controller
+        component "<<component>>\nRepository" as Repository
+    }
+
+    ' Application Business Rules Layer
+    rectangle "Application Business Rules" #LightPink {
+        component "<<component>>\nService" as Service
+    }
+
+    ' Enterprise Business Rules Layer
+    rectangle "Enterprise Business Rules" #Wheat {
+        component "<<component>>\nModel" as Model
+    }
+
+    ' Internal connections with API labels
+    Router --> Controller : Controller API
+    Driver --> Repository : Driver API
+    Controller --> Service : Service API
+    Service --> Repository : Repo API
+    Service --> Model : Model API
+    Repository ..> Model
+}
+
+' External connections
+LMSAPI --> Router
+Driver --> DBAPI
+
+caption Logical View (Level 3)
+@enduml

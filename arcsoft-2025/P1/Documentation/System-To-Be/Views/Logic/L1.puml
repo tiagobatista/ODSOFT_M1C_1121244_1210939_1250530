@@ -1,0 +1,40 @@
+@startuml "Logic View - Level 1 (System-to-be)"
+!define LIGHTBLUE #87CEFA
+
+' Styling
+skinparam componentStyle uml2
+skinparam backgroundColor white
+skinparam componentBackgroundColor LIGHTBLUE
+skinparam interfaceBackgroundColor LIGHTBLUE
+
+' The REST API interface (consumed by external clients)
+() "REST API" as RestAPI
+
+' The central component
+component "<<component>>\nLibrary Management\nSystem" as LMS
+
+' APIs consumed by LMS
+() "ISBN Retrieval API" as IsbnAPI
+() "DB API" as DbAPI
+
+' Connections
+RestAPI -- LMS
+LMS ..> IsbnAPI : consumes
+LMS ..> DbAPI : consumes
+
+note right of LMS
+  Provides CRUD operations for:
+  - Books
+  - Genres
+  - Authors
+  - Readers
+  - Lendings
+
+  Integrates with external services:
+  - ISBN retrieval from multiple sources
+  - Multiple data storage models
+end note
+
+caption Logic View - Level 1 (System-to-be)
+
+@enduml

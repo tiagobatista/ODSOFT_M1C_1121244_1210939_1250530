@@ -1,0 +1,26 @@
+@startuml "Implementation View Level 2"
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 12
+}
+
+skinparam shadowing false
+
+' Main package containing sub-packages
+package "Library Management System" as LMS {
+
+    package "BackEnd" as Backend {
+    }
+
+    package "Database" as Database {
+    }
+
+    ' Dependency relationship (dashed arrow)
+    Backend ..> Database
+}
+
+
+caption Implementation View (Level 2)
+@enduml

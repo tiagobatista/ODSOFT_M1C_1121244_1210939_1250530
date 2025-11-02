@@ -1,0 +1,50 @@
+package pt.psoft.g1.psoftg1.readermanagement.services;
+
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateReaderRequest {
+
+    @NotBlank
+    @Email
+    @NonNull
+    private String username;
+
+    @NotBlank
+    @NonNull
+    private String password;
+
+    @NotBlank
+    @NonNull
+    private String fullName;
+
+    @NonNull
+    @NotBlank
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String birthDate;
+
+    @NonNull
+    @NotBlank
+    private String phoneNumber;
+
+    @Nullable
+    private MultipartFile photo;
+
+    private boolean gdpr;
+
+    private boolean marketing;
+
+    private boolean thirdParty;
+
+    @Nullable
+    private List<String> interestList;
+}

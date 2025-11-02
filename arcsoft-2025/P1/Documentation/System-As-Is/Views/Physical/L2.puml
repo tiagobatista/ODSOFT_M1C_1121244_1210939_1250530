@@ -1,0 +1,26 @@
+@startuml "Physical View"
+
+skinparam node {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 14
+    FontStyle bold
+    shadowing true
+}
+
+skinparam component {
+    BackgroundColor #9FC5E8
+    BorderColor Black
+    FontSize 12
+}
+
+skinparam shadowing true
+
+
+' Deployment node (PlantUML will render with pseudo-3D effect)
+node "Localhost" as localhost <<device>> {
+    component "<<component>>\nLibrary\nManagement\nSystem" as LMS
+}
+
+caption Physical View (Level 2)
+@enduml

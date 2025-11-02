@@ -1,0 +1,18 @@
+@startuml "Implementation View Level 1"
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 14
+    FontStyle bold
+}
+
+skinparam shadowing false
+
+
+
+' Main package
+package "Library Management System" as LMS {
+}
+caption Implementation View (Level 1)
+@enduml

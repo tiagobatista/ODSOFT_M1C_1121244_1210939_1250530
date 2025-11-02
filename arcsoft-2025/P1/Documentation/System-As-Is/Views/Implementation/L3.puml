@@ -1,0 +1,77 @@
+@startuml "Implementation View Level 3"
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 10
+}
+
+skinparam shadowing false
+!define SPACING 30
+
+' Backend package with vertical layout
+package "BackEnd" as Backend {
+
+    ' First row - Support packages
+    package "Shared" as Shared {
+    }
+    package "ExternalServices" as ExtServices {
+    }
+    Shared -[hidden]right- ExtServices
+
+    ' Second row - More support packages
+    package "Exceptions" as Exceptions {
+    }
+    package "Configuration" as Config {
+    }
+    Exceptions -[hidden]right- Config
+
+    ' Center - BootStrapping
+    package "BootStrapping" as Bootstrap {
+    }
+
+    ' Third row - Management modules
+    package "Auth" as Auth {
+    }
+    package "AuthorManagement" as AuthorMgmt {
+    }
+    Auth -[hidden]right- AuthorMgmt
+
+    ' Fourth row
+    package "BookManagement" as BookMgmt {
+    }
+    package "GenreManagement" as GenreMgmt {
+    }
+    BookMgmt -[hidden]right- GenreMgmt
+
+    ' Fifth row
+    package "LendingManagement" as LendingMgmt {
+    }
+    package "ReaderManagement" as ReaderMgmt {
+    }
+    LendingMgmt -[hidden]right- ReaderMgmt
+
+    ' Sixth row
+    package "UserManagement" as UserMgmt {
+    }
+
+    ' Vertical positioning hints
+    Shared -[hidden]down- Exceptions
+    Exceptions -[hidden]down- Bootstrap
+    Bootstrap -[hidden]down- Auth
+    Auth -[hidden]down- BookMgmt
+    BookMgmt -[hidden]down- LendingMgmt
+    LendingMgmt -[hidden]down- UserMgmt
+
+    ' Dependencies - BootStrapping depends on all management modules
+    Bootstrap ..> Auth
+    Bootstrap ..> AuthorMgmt
+    Bootstrap ..> BookMgmt
+    Bootstrap ..> GenreMgmt
+    Bootstrap ..> LendingMgmt
+    Bootstrap ..> ReaderMgmt
+    Bootstrap ..> UserMgmt
+}
+
+caption Implementation View (Level 3)
+@enduml

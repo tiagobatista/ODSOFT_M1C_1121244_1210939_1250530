@@ -1,0 +1,112 @@
+@startuml "Logic View - Level 3 (System-to-be)"
+!define RECTANGLE class
+
+skinparam component {
+    BackgroundColor LightBlue
+    BorderColor Black
+    FontSize 10
+}
+
+skinparam interface {
+    BackgroundColor White
+    BorderColor Black
+    FontSize 9
+}
+
+skinparam package {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+skinparam rectangle {
+    BorderColor Black
+    FontSize 10
+}
+
+' External interface at top
+interface "LMS REST API" as LMSAPI
+
+' Main Backend container
+package "<<component>>\nBackend" as Backend {
+
+    ' Frameworks and Drivers Layer
+    rectangle "Frameworks and Drivers Layer" #LightCyan {
+        component "<<component>>\nRouter" as Router
+        component "<<component>>\nDriver" as Driver
+        component "<<component>>\nISBNDriver" as ISBNDriver
+    }
+
+    ' Interface Adapters Layer
+    rectangle "Interface Adapters Layer" #LightGreen {
+        component "<<component>>\nController" as Controller
+        component "<<component>>\nRepository" as Repository
+        component "<<component>>\nISBNAdapter" as ISBNAdapter
+    }
+
+    ' Application Business Rules Layer
+    rectangle "Application Business Rules" #LightPink {
+        component "<<component>>\nService" as Service
+    }
+
+    ' Enterprise Business Rules Layer
+    rectangle "Enterprise Business Rules" #Wheat {
+        component "<<component>>\nModel" as Model
+    }
+
+    ' Internal connections with API labels
+    Router --> Controller : Controller API
+    Driver ..> Repository : Driver API
+    ISBNDriver ..> ISBNAdapter : ISBN Adapter API
+    Controller --> Service : Service API
+    Service --> Repository : Repo API
+    Service --> Model : Model API
+    Repository ..> Model
+    ISBNAdapter ..> Service
+}
+
+' Database APIs group
+rectangle "Database APIs" #WhiteSmoke {
+    interface "SQL+Redis API" as SqlRedisAPI
+    interface "MongoDB+Redis API" as MongoRedisAPI
+    interface "ElasticSearch API" as ElasticAPI
+
+    note right of MongoRedisAPI
+        Redis provides caching layer for
+        SQL and MongoDB configurations.
+        Write-through caching strategy:
+        - Reads check cache first
+        - Writes update DB then cache
+        - TTL: 15min-24h per entity type
+    end note
+}
+
+' ISBN APIs group
+rectangle "ISBN Retrieval APIs" #WhiteSmoke {
+    interface "Google Books API" as GoogleBooksAPI
+    interface "Open Library API" as OpenLibAPI
+    interface "Custom Combined API" as CustomAPI
+
+    note right of CustomAPI
+        Custom Combined API aggregates
+        results from Google Books and
+        Open Library in parallel.
+        Returns partial results if one
+        service fails (enhanced reliability).
+    end note
+}
+
+' External connections
+LMSAPI --> Router
+
+' Database connections
+Driver --> SqlRedisAPI
+Driver --> MongoRedisAPI
+Driver --> ElasticAPI
+
+' ISBN connections
+ISBNDriver --> GoogleBooksAPI
+ISBNDriver --> OpenLibAPI
+ISBNDriver --> CustomAPI
+
+caption Logic View - Level 3 (System-to-be)
+@enduml

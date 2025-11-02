@@ -1,0 +1,80 @@
+@startuml "Mapping View - Logic to Implementation (System-As-Is)"
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+' Left side - Logic View Components
+package "Logic View\n(Level 3 Components)" as LogicView {
+    rectangle "Frameworks & Drivers" #LightCyan {
+        component "Router" as LogicRouter
+        component "Driver" as LogicDriver
+    }
+
+    rectangle "Interface Adapters" #LightGreen {
+        component "Controller" as LogicController
+        component "Repository" as LogicRepository
+    }
+
+    rectangle "Application Business Rules" #LightPink {
+        component "Service" as LogicService
+    }
+
+    rectangle "Enterprise Business Rules" #Wheat {
+        component "Model" as LogicModel
+    }
+}
+
+' Right side - Implementation View Packages
+package "Implementation View\n(Level 3 & 4 Packages)" as ImplView {
+
+    package "Domain Packages" {
+        rectangle "BookManagement\nAuthorManagement\nLendingManagement\nGenreManagement\nReaderManagement" as DomainPkgs #LightBlue
+    }
+
+    package "Auth" as AuthPkg #LightBlue
+
+    package "UserManagement" as UserMgmtPkg #LightBlue
+
+    package "Configuration" as ConfigPkg #LightBlue
+
+    package "ExternalServices" as ExtServicesPkg #LightBlue
+
+    package "Shared" as SharedPkg #LightBlue
+
+    package "Exceptions" as ExceptionsPkg #LightBlue
+}
+
+' Mappings with labels
+LogicRouter -.> DomainPkgs : "maps to\nAPI layer"
+LogicController -.> DomainPkgs : "maps to\nAPI/Controllers"
+LogicService -.> DomainPkgs : "maps to\nServices"
+LogicModel -.> DomainPkgs : "maps to\nModel"
+LogicRepository -.> DomainPkgs : "maps to\nRepositories"
+LogicDriver -.> DomainPkgs : "maps to\nInfrastructure.repositories.impl"
+
+LogicRouter -.> AuthPkg : "authentication\nrouting"
+LogicController -.> AuthPkg : "authentication\ncontrollers"
+
+LogicService -.> UserMgmtPkg : "user management\nservices"
+
+LogicDriver -.> ConfigPkg : "uses for\nDB configuration"
+
+LogicDriver -.> ExtServicesPkg : "uses for\nexternal integrations"
+
+LogicService -.> SharedPkg : "uses common\nutilities"
+
+LogicController -.> ExceptionsPkg : "uses for\nerror handling"
+
+note right of DomainPkgs
+  Each domain package
+  (e.g., BookManagement)
+  contains:
+  - API (Controllers)
+  - Services
+  - Model
+  - Repositories
+  - Infrastructure.repositories.impl
+end note
+
+caption Mapping View - Logic to Implementation (System-As-Is)
+@enduml

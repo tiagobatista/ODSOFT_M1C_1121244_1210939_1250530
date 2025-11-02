@@ -1,0 +1,53 @@
+@startuml "Process View Level 3"
+
+'User here is a generic user that can be Librarian or Reader based on context
+
+skinparam participant {
+    BackgroundColor LightBlue
+    BorderColor Black
+}
+
+skinparam actor {
+    BackgroundColor White
+    BorderColor Black
+}
+
+skinparam note {
+    BackgroundColor LightGray
+    BorderColor Black
+}
+
+skinparam sequence {
+    ArrowColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor LightBlue
+}
+
+
+actor User
+note left of User : User is\nauthenticated
+
+participant "LMS System" as System
+participant "LendingController" as Controller
+participant "LendingService" as Service
+participant "LendingRepository" as Repository
+
+User -> System : 1: Request to see the details of a lending
+activate System
+System -> Controller : 1.1: findByLendingNumber()
+activate Controller
+Controller -> Service : 1.1.1: findByLendingNumber(lendingNumber)
+activate Service
+Service -> Repository : 1.1.1.1: findByLendingNumber(lendingNumber)
+activate Repository
+Repository --> Service : 1.1.1.1.1: (lending)
+deactivate Repository
+Service --> Controller : 1.1.1.1: (lending)
+deactivate Service
+Controller --> System : 1.1.1.1.1.1: (lendingView)
+deactivate Controller
+System --> User : 1.1.1.1.1.1.1: Details of newly registered lending
+deactivate System
+
+caption Figure 3 - Process View (Level 3) - Component Interaction Sequence for Lending Details Query
+@enduml

@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # Keep GitHub Actions workflows up to date
+  - package-ecosystem: "github-actions"
+    directory: "/" # location of workflow files
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+      major:
+        update-types: ["major"]
+
+  # Keep Maven dependencies up to date
+  - package-ecosystem: "maven"
+    directory: "/" # location of pom.xml
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "maven"
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+      major:
+        update-types: ["major"]
+    ignore:
+      # Avoid sudden breaking Spring Boot upgrades
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types: ["version-update:semver-major"]
