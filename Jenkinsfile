@@ -251,12 +251,12 @@ pipeline {
                     sh '''
                         echo "🏥 Checking application health..."
                         for i in {1..12}; do
-                            if curl -f http://localhost:8080/actuator/health 2>/dev/null; then
+                            if docker exec psoft-g1-dev curl -f http://localhost:8080/actuator/health 2>/dev/null; then
                                 echo "✅ Application is healthy!"
 
                                 echo "🔍 Testing API endpoints..."
-                                curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
-                                curl -f http://localhost:8080/actuator/info || echo "⚠️ Actuator info not accessible"
+                                docker exec psoft-g1-dev curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
+                                docker exec psoft-g1-dev curl -f http://localhost:8080/actuator/info || echo "⚠️ Actuator info not accessible"
 
                                 echo "✅ QG2 PASSED - DEV environment verified"
                                 exit 0
