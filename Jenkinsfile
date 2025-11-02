@@ -236,7 +236,7 @@ pipeline {
                             ${DOCKER_IMAGE_DEV}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 45
+                        sleep 60
                         echo "✅ Deployed to DEV environment"
                     '''
                 }
