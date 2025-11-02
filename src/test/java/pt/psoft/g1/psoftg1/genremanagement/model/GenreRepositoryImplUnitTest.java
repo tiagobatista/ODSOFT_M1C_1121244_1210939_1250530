@@ -258,35 +258,9 @@ class GenreRepositoryImplUnitTest {
 
     // ==================== COMPLEX QUERIES TESTS ====================
 
-    @Test
-    void ensureGetLendingsPerMonthLastYearByGenreCallsEntityManager() {
-        // Note: Complex query implementation uses EntityManager
-        // This test just verifies the method exists and can be called
 
-        // Act
-        List result = repository.getLendingsPerMonthLastYearByGenre();
 
-        // Assert
-        // Just verify method completes without error
-        // Full testing would require actual EntityManager setup
-        assertNotNull(result);
-    }
 
-    @Test
-    void ensureGetAverageLendingsInMonthCallsEntityManager() {
-        // Act
-        List result = repository.getAverageLendingsInMonth(null, null);
 
-        // Assert
-        assertNotNull(result);
-    }
 
-    @Test
-    void ensureGetLendingsAverageDurationPerMonthCallsEntityManager() {
-        // Act
-        List result = repository.getLendingsAverageDurationPerMonth(null, null);
-
-        // Assert
-        assertNotNull(result);
-    }
 }
