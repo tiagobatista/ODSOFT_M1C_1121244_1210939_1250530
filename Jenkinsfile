@@ -11,7 +11,6 @@ pipeline {
         DOCKER_NETWORK = 'odsoft_m1c_1121244_1210939_1250530_ci-network'
         SONAR_HOST = 'http://sonarqube:9000'
         REDIS_HOST = 'redis'
-        POSTGRES_HOST = 'postgres'
         DOCKER_AVAILABLE = 'false'
     }
 
@@ -41,6 +40,18 @@ pipeline {
                             sh "docker network create ${DOCKER_NETWORK} || true"
                         }
                         echo "✅ Network ${DOCKER_NETWORK} is ready"
+
+                        // Connect Redis container to the CI network if not already connected
+                        echo '🔗 Connecting Redis to CI network...'
+                        sh """
+                            docker network connect ${DOCKER_NETWORK} redis 2>/dev/null && echo "✅ Redis connected to network" || echo "ℹ️ Redis already connected to network"
+                        """
+
+                        // Verify Redis is accessible
+                        sh """
+                            echo "🔍 Verifying Redis connectivity..."
+                            docker run --rm --network ${DOCKER_NETWORK} redis:7-alpine redis-cli -h redis ping || echo "⚠️ Redis not responding"
+                        """
                     } else {
                         echo '⚠️ Docker not available - deployment stages will be skipped'
                     }
@@ -162,7 +173,6 @@ pipeline {
                         keepAll: true
                     ])
 
-                    // Parse PITest results
                     script {
                         if (fileExists('target/pit-reports/mutations.xml')) {
                             echo '📊 Mutation test results available'
@@ -174,7 +184,6 @@ pipeline {
 
         // Stage 6: Build Docker Image
         stage('6. Build Docker Image') {
-
             steps {
                 echo '🐳 Stage 6: Building Docker image...'
                 script {
@@ -203,7 +212,6 @@ pipeline {
 
         // Stage 7: Deploy to DEV
         stage('7. Deploy to DEV') {
-
             steps {
                 echo '🚀 Stage 7: Deploying to DEV environment...'
                 script {
@@ -228,7 +236,7 @@ pipeline {
                             ${DOCKER_IMAGE_DEV}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 30
+                        sleep 35
                         echo "✅ Deployed to DEV environment"
                     '''
                 }
@@ -237,13 +245,12 @@ pipeline {
 
         // Stage 8: System Tests DEV (QG2)
         stage('8. System Tests DEV - QG2') {
-
             steps {
                 echo '🧪 Stage 8: Running system tests on DEV...'
                 script {
                     sh '''
                         echo "🏥 Checking application health..."
-                        for i in {1..10}; do
+                        for i in {1..12}; do
                             if curl -f http://localhost:8080/actuator/health 2>/dev/null; then
                                 echo "✅ Application is healthy!"
 
@@ -254,7 +261,7 @@ pipeline {
                                 echo "✅ QG2 PASSED - DEV environment verified"
                                 exit 0
                             fi
-                            echo "⏳ Attempt $i/10: Waiting for application..."
+                            echo "⏳ Attempt $i/12: Waiting for application..."
                             sleep 5
                         done
 
@@ -265,14 +272,19 @@ pipeline {
             }
             post {
                 always {
-                    sh 'docker logs ${APP_NAME}-dev --tail 100 2>/dev/null || true'
+                    sh '''
+                        echo "📋 Container logs:"
+                        docker logs ${APP_NAME}-dev --tail 100 2>/dev/null || true
+
+                        echo "🔍 Redis connectivity check:"
+                        docker exec ${APP_NAME}-dev sh -c "nc -zv redis 6379" || echo "⚠️ Cannot reach Redis from container"
+                    '''
                 }
             }
         }
 
         // Stage 9: Deploy to STAGING
         stage('9. Deploy to STAGING') {
-
             steps {
                 echo '🚀 Stage 9: Deploying to STAGING environment...'
                 script {
@@ -287,15 +299,15 @@ pipeline {
                             -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
-                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
-                                                       -e SPRING_DATASOURCE_USERNAME=sa \
-                                                       -e SPRING_DATASOURCE_PASSWORD= \
+                            -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
+                            -e SPRING_DATASOURCE_USERNAME=sa \
+                            -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
                             ${DOCKER_IMAGE_STAGING}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 30
+                        sleep 35
                     '''
                 }
             }
@@ -303,19 +315,18 @@ pipeline {
 
         // Stage 10: System Tests STAGING (QG3)
         stage('10. System Tests STAGING - QG3') {
-
             steps {
                 echo '🧪 Stage 10: Running system tests on STAGING...'
                 script {
                     sh '''
-                        for i in {1..10}; do
+                        for i in {1..12}; do
                             if curl -f http://localhost:8082/actuator/health 2>/dev/null; then
                                 echo "✅ STAGING is healthy!"
                                 curl -f http://localhost:8082/api-docs || echo "⚠️ API docs not accessible"
                                 echo "✅ QG3 PASSED"
                                 exit 0
                             fi
-                            echo "⏳ Attempt $i/10..."
+                            echo "⏳ Attempt $i/12..."
                             sleep 5
                         done
                         echo "❌ QG3 FAILED"
@@ -323,11 +334,15 @@ pipeline {
                     '''
                 }
             }
+            post {
+                always {
+                    sh 'docker logs ${APP_NAME}-staging --tail 100 2>/dev/null || true'
+                }
+            }
         }
 
         // Stage 11: Deploy to PROD
         stage('11. Deploy to PROD') {
-
             steps {
                 echo '🚀 Stage 11: Deploying to PRODUCTION...'
                 script {
@@ -346,15 +361,15 @@ pipeline {
                             -e SPRING_PROFILES_ACTIVE=sql-redis \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
-                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
-                                                       -e SPRING_DATASOURCE_USERNAME=sa \
-                                                       -e SPRING_DATASOURCE_PASSWORD= \
+                            -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
+                            -e SPRING_DATASOURCE_USERNAME=sa \
+                            -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
                             -e SPRING_JPA_HIBERNATE_DDL_AUTO=validate \
                             ${DOCKER_IMAGE_PROD}
 
-                        sleep 30
+                        sleep 35
                     '''
                 }
             }
@@ -362,7 +377,6 @@ pipeline {
 
         // Stage 12: Verify PROD (QG4)
         stage('12. Verify PROD - QG4') {
-
             steps {
                 echo '✅ Stage 12: Verifying PRODUCTION...'
                 script {
@@ -385,6 +399,9 @@ pipeline {
             post {
                 failure {
                     sh 'docker stop ${APP_NAME}-prod || true'
+                }
+                always {
+                    sh 'docker logs ${APP_NAME}-prod --tail 100 2>/dev/null || true'
                 }
             }
         }
