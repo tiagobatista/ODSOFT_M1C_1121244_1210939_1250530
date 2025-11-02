@@ -424,7 +424,6 @@ pipeline {
                             -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
-                            -e SPRING_JPA_HIBERNATE_DDL_AUTO=validate \
                             ${DOCKER_IMAGE_PROD}
 
                         sleep 60
