@@ -236,49 +236,85 @@ pipeline {
                             ${DOCKER_IMAGE_DEV}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 35
+                        sleep 45
                         echo "✅ Deployed to DEV environment"
                     '''
                 }
             }
         }
 
-        // Stage 8: System Tests DEV (QG2)
+        // Stage 8: System Tests DEV (QG2) - CORRIGIDO
         stage('8. System Tests DEV - QG2') {
             steps {
                 echo '🧪 Stage 8: Running system tests on DEV...'
                 script {
-                    sh '''
-                        echo "🏥 Checking application health..."
-                        for i in {1..12}; do
-                            if docker exec psoft-g1-dev wget -q -O- http://localhost:8080/actuator/health 2>/dev/null | grep -q '"status":"UP"'; then
-                                echo "✅ Application is healthy!"
+                    // CORRIGIDO: Usar Groovy loop ao invés de bash
+                    def maxAttempts = 12
+                    def healthy = false
 
-                                echo "🔍 Testing API endpoints..."
-                                docker exec psoft-g1-dev wget -q -O- http://localhost:8080/api-docs >/dev/null 2>&1 && echo "✅ API docs accessible" || echo "⚠️ API docs not accessible"
-                                docker exec psoft-g1-dev wget -q -O- http://localhost:8080/actuator/info >/dev/null 2>&1 && echo "✅ Actuator info accessible" || echo "⚠️ Actuator info not accessible"
+                    echo '🏥 Checking application health...'
 
-                                echo "✅ QG2 PASSED - DEV environment verified"
-                                exit 0
-                            fi
-                            echo "⏳ Attempt $i/12: Waiting for application..."
+                    for (int i = 1; i <= maxAttempts; i++) {
+                        def healthStatus = sh(
+                            script: """
+                                docker exec ${APP_NAME}-dev wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                            """,
+                            returnStdout: true
+                        ).trim()
+
+                        if (healthStatus.contains('"status":"UP"')) {
+                            echo "✅ Application is healthy!"
+
+                            // Testes adicionais
+                            echo "🔍 Testing API endpoints..."
+                            sh """
+                                docker exec ${APP_NAME}-dev wget --timeout=5 --tries=1 -q -O- http://localhost:8080/api-docs >/dev/null 2>&1 && echo "✅ API docs accessible" || echo "⚠️ API docs not accessible"
+                                docker exec ${APP_NAME}-dev wget --timeout=5 --tries=1 -q -O- http://localhost:8080/actuator/info >/dev/null 2>&1 && echo "✅ Actuator info accessible" || echo "⚠️ Actuator info not accessible"
+                            """
+
+                            echo "✅ QG2 PASSED - DEV environment verified"
+                            healthy = true
+                            break
+                        }
+
+                        echo "⏳ Attempt ${i}/${maxAttempts}: Waiting for application..."
+
+                        if (i < maxAttempts) {
                             sleep 5
-                        done
+                        }
+                    }
 
-                        echo "❌ QG2 FAILED - Health check timeout"
-                        exit 1
-                    '''
+                    if (!healthy) {
+                        echo "❌ QG2 FAILED - Health check timeout after ${maxAttempts} attempts"
+                        error("Application failed to start properly")
+                    }
                 }
             }
             post {
                 always {
-                    sh '''
-                        echo "📋 Container logs:"
-                        docker logs ${APP_NAME}-dev --tail 100 2>/dev/null || true
+                    sh """
+                        echo "📋 Container logs (last 100 lines):"
+                        docker logs ${APP_NAME}-dev --tail 100 2>/dev/null || echo "⚠️ Could not retrieve logs"
 
+                        echo ""
+                        echo "🔍 Container status:"
+                        docker ps -a | grep ${APP_NAME}-dev || echo "⚠️ Container not found"
+
+                        echo ""
                         echo "🔍 Redis connectivity check:"
-                        docker exec ${APP_NAME}-dev sh -c "nc -zv redis 6379" || echo "⚠️ Cannot reach Redis from container"
-                    '''
+                        docker exec ${APP_NAME}-dev sh -c "nc -zv ${REDIS_HOST} 6379" 2>&1 || echo "⚠️ Cannot reach Redis from container"
+
+                        echo ""
+                        echo "🔍 Network inspection:"
+                        docker network inspect ${DOCKER_NETWORK} | grep -A 10 ${APP_NAME}-dev || echo "⚠️ Container not in network"
+                    """
+                }
+                failure {
+                    sh """
+                        echo "🔍 Additional diagnostics:"
+                        docker exec ${APP_NAME}-dev ps aux 2>/dev/null || echo "⚠️ Cannot execute ps in container"
+                        docker exec ${APP_NAME}-dev netstat -tuln 2>/dev/null || echo "⚠️ Cannot execute netstat in container"
+                    """
                 }
             }
         }
@@ -307,31 +343,47 @@ pipeline {
                             ${DOCKER_IMAGE_STAGING}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 35
+                        sleep 45
                     '''
                 }
             }
         }
 
-        // Stage 10: System Tests STAGING (QG3)
+        // Stage 10: System Tests STAGING (QG3) - CORRIGIDO
         stage('10. System Tests STAGING - QG3') {
             steps {
                 echo '🧪 Stage 10: Running system tests on STAGING...'
                 script {
-                    sh '''
-                        for i in {1..12}; do
-                            if docker exec psoft-g1-staging curl -f http://localhost:8080/actuator/health 2>/dev/null; then
-                                echo "✅ STAGING is healthy!"
-                                docker exec psoft-g1-staging curl -f http://localhost:8080/api-docs || echo "⚠️ API docs not accessible"
-                                echo "✅ QG3 PASSED"
-                                exit 0
-                            fi
-                            echo "⏳ Attempt $i/12..."
+                    def maxAttempts = 12
+                    def healthy = false
+
+                    for (int i = 1; i <= maxAttempts; i++) {
+                        def healthStatus = sh(
+                            script: """
+                                docker exec ${APP_NAME}-staging wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                            """,
+                            returnStdout: true
+                        ).trim()
+
+                        if (healthStatus.contains('"status":"UP"')) {
+                            echo "✅ STAGING is healthy!"
+                            sh """
+                                docker exec ${APP_NAME}-staging wget --timeout=5 --tries=1 -q -O- http://localhost:8080/api-docs >/dev/null 2>&1 && echo "✅ API docs accessible" || echo "⚠️ API docs not accessible"
+                            """
+                            echo "✅ QG3 PASSED"
+                            healthy = true
+                            break
+                        }
+
+                        echo "⏳ Attempt ${i}/${maxAttempts}..."
+                        if (i < maxAttempts) {
                             sleep 5
-                        done
-                        echo "❌ QG3 FAILED"
-                        exit 1
-                    '''
+                        }
+                    }
+
+                    if (!healthy) {
+                        error("STAGING health check failed")
+                    }
                 }
             }
             post {
@@ -369,31 +421,47 @@ pipeline {
                             -e SPRING_JPA_HIBERNATE_DDL_AUTO=validate \
                             ${DOCKER_IMAGE_PROD}
 
-                        sleep 35
+                        sleep 45
                     '''
                 }
             }
         }
 
-        // Stage 12: Verify PROD (QG4)
+        // Stage 12: Verify PROD (QG4) - CORRIGIDO
         stage('12. Verify PROD - QG4') {
             steps {
                 echo '✅ Stage 12: Verifying PRODUCTION...'
                 script {
-                    sh '''
-                        for i in {1..15}; do
-                            if docker exec psoft-g1-prod curl -f http://localhost:8080/actuator/health 2>/dev/null; then
-                                echo "✅ PRODUCTION verified!"
-                                docker exec psoft-g1-prod curl -f http://localhost:8080/api-docs
-                                echo "🎉 QG4 PASSED"
-                                exit 0
-                            fi
-                            echo "⏳ Attempt $i/15..."
+                    def maxAttempts = 15
+                    def healthy = false
+
+                    for (int i = 1; i <= maxAttempts; i++) {
+                        def healthStatus = sh(
+                            script: """
+                                docker exec ${APP_NAME}-prod wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                            """,
+                            returnStdout: true
+                        ).trim()
+
+                        if (healthStatus.contains('"status":"UP"')) {
+                            echo "✅ PRODUCTION verified!"
+                            sh """
+                                docker exec ${APP_NAME}-prod wget --timeout=5 --tries=1 -q -O- http://localhost:8080/api-docs >/dev/null 2>&1
+                            """
+                            echo "🎉 QG4 PASSED"
+                            healthy = true
+                            break
+                        }
+
+                        echo "⏳ Attempt ${i}/${maxAttempts}..."
+                        if (i < maxAttempts) {
                             sleep 10
-                        done
-                        echo "❌ QG4 FAILED"
-                        exit 1
-                    '''
+                        }
+                    }
+
+                    if (!healthy) {
+                        error("PRODUCTION verification failed")
+                    }
                 }
             }
             post {
