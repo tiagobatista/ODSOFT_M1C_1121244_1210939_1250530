@@ -220,9 +220,9 @@ pipeline {
                             -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
-                            -e SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOST}:5432/library_dev \
-                            -e SPRING_DATASOURCE_USERNAME=postgres \
-                            -e SPRING_DATASOURCE_PASSWORD=postgres \
+                            -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
+                            -e SPRING_DATASOURCE_USERNAME=sa \
+                            -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
                             ${DOCKER_IMAGE_DEV}
@@ -287,9 +287,9 @@ pipeline {
                             -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
-                            -e SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOST}:5432/library_staging \
-                            -e SPRING_DATASOURCE_USERNAME=postgres \
-                            -e SPRING_DATASOURCE_PASSWORD=postgres \
+                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
+                                                       -e SPRING_DATASOURCE_USERNAME=sa \
+                                                       -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
                             ${DOCKER_IMAGE_STAGING}
@@ -346,9 +346,9 @@ pipeline {
                             -e SPRING_PROFILES_ACTIVE=sql-redis \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
-                            -e SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOST}:5432/library_prod \
-                            -e SPRING_DATASOURCE_USERNAME=postgres \
-                            -e SPRING_DATASOURCE_PASSWORD=postgres \
+                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
+                                                       -e SPRING_DATASOURCE_USERNAME=sa \
+                                                       -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
                             -e SPRING_JPA_HIBERNATE_DDL_AUTO=validate \
