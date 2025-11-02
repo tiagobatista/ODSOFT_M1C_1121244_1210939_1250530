@@ -220,12 +220,12 @@ pipeline {
                         docker stop ${APP_NAME}-dev 2>/dev/null || true
                         docker rm ${APP_NAME}-dev 2>/dev/null || true
 
-                        # Run new container
+                        # Run new container (SEM BOOTSTRAP para evitar erros de dados)
                         docker run -d \
                             --name ${APP_NAME}-dev \
                             --network ${DOCKER_NETWORK} \
                             -p 8080:8080 \
-                            -e SPRING_PROFILES_ACTIVE=sql-redis,bootstrap \
+                            -e SPRING_PROFILES_ACTIVE=sql-redis \
                             -e SPRING_DATA_REDIS_HOST=${REDIS_HOST} \
                             -e SPRING_DATA_REDIS_PORT=6379 \
                             -e SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb \
