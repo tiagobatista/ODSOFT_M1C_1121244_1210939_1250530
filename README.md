@@ -1,8 +1,8 @@
-# MEI-ARCSOFT-2025-2026-1191577-1210939-1250530
+# MEI-odsoft-2025-2026-1191577-1210939-1250530
 
-ARCSOFT 2025/2026 repo of students:
+odsoft 2025/2026 repo of students:
 
-1191577 - Ilídio Miguel Teixeira Magalhães
+
 
 1210939 - Nuno De Brito Castro Moura De Oliveira
 
