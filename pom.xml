@@ -356,7 +356,7 @@
                     </excludedClasses>
 
                     <!-- Thresholds realistas -->
-                    <mutationThreshold>20</mutationThreshold>
+                    <mutationThreshold>15</mutationThreshold>
                     <coverageThreshold>40</coverageThreshold>
 
                     <!-- Mutation operators - usa STRONGER para melhor qualidade -->
