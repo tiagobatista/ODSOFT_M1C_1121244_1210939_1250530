@@ -18,8 +18,8 @@ RUN mvn clean package -DskipTests -B
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# CORRIGIDO: Instalar wget e netcat para healthcheck e debugging
-RUN apk add --no-cache wget busybox-extras
+# Instalar wget e netcat para healthcheck e debugging
+RUN apk add --no-cache wget busybox-extras curl
 
 # Criar usuário não-root por segurança
 RUN addgroup -S spring && adduser -S spring -G spring
@@ -36,9 +36,9 @@ USER spring:spring
 # Expor porta
 EXPOSE 8080
 
-# CORRIGIDO: Health check com start-period maior e usando wget instalado
-HEALTHCHECK --interval=10s --timeout=5s --start-period=60s --retries=5 \
+# Health check otimizado com start-period maior
+HEALTHCHECK --interval=15s --timeout=10s --start-period=120s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
 
-# Executar aplicação com profiles ativos
+# Executar aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]

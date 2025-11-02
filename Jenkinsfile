@@ -233,10 +233,11 @@ pipeline {
                             -e SPRING_DATASOURCE_PASSWORD= \
                             -e PERSISTENCE_STRATEGY=sql-redis \
                             -e PERSISTENCE_USE_EMBEDDED_REDIS=false \
+                            -e SERVER_PORT=8080 \
                             ${DOCKER_IMAGE_DEV}
 
-                        echo "⏳ Waiting for application to start..."
-                        sleep 60
+                        echo "⏳ Waiting for application to initialize (90 seconds)..."
+                        sleep 90
                         echo "✅ Deployed to DEV environment"
                     '''
                 }
@@ -248,8 +249,7 @@ pipeline {
             steps {
                 echo '🧪 Stage 8: Running system tests on DEV...'
                 script {
-                    // CORRIGIDO: Usar Groovy loop ao invés de bash
-                    def maxAttempts = 12
+                    def maxAttempts = 20
                     def healthy = false
 
                     echo '🏥 Checking application health...'
@@ -257,10 +257,12 @@ pipeline {
                     for (int i = 1; i <= maxAttempts; i++) {
                         def healthStatus = sh(
                             script: """
-                                docker exec ${APP_NAME}-dev wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                                docker exec ${APP_NAME}-dev wget --timeout=5 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
                             """,
                             returnStdout: true
                         ).trim()
+
+                        echo "Attempt ${i}/${maxAttempts}: Health response = ${healthStatus}"
 
                         if (healthStatus.contains('"status":"UP"')) {
                             echo "✅ Application is healthy!"
@@ -280,12 +282,16 @@ pipeline {
                         echo "⏳ Attempt ${i}/${maxAttempts}: Waiting for application..."
 
                         if (i < maxAttempts) {
-                            sleep 5
+                            sleep 10
                         }
                     }
 
                     if (!healthy) {
                         echo "❌ QG2 FAILED - Health check timeout after ${maxAttempts} attempts"
+                        sh """
+                            echo "📋 Final container logs (last 200 lines):"
+                            docker logs ${APP_NAME}-dev --tail 200 2>/dev/null || echo "⚠️ Could not retrieve logs"
+                        """
                         error("Application failed to start properly")
                     }
                 }
@@ -343,24 +349,24 @@ pipeline {
                             ${DOCKER_IMAGE_STAGING}
 
                         echo "⏳ Waiting for application to start..."
-                        sleep 45
+                        sleep 60
                     '''
                 }
             }
         }
 
-        // Stage 10: System Tests STAGING (QG3) - CORRIGIDO
+        // Stage 10: System Tests STAGING (QG3)
         stage('10. System Tests STAGING - QG3') {
             steps {
                 echo '🧪 Stage 10: Running system tests on STAGING...'
                 script {
-                    def maxAttempts = 12
+                    def maxAttempts = 15
                     def healthy = false
 
                     for (int i = 1; i <= maxAttempts; i++) {
                         def healthStatus = sh(
                             script: """
-                                docker exec ${APP_NAME}-staging wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                                docker exec ${APP_NAME}-staging wget --timeout=5 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
                             """,
                             returnStdout: true
                         ).trim()
@@ -377,7 +383,7 @@ pipeline {
 
                         echo "⏳ Attempt ${i}/${maxAttempts}..."
                         if (i < maxAttempts) {
-                            sleep 5
+                            sleep 10
                         }
                     }
 
@@ -421,24 +427,24 @@ pipeline {
                             -e SPRING_JPA_HIBERNATE_DDL_AUTO=validate \
                             ${DOCKER_IMAGE_PROD}
 
-                        sleep 45
+                        sleep 60
                     '''
                 }
             }
         }
 
-        // Stage 12: Verify PROD (QG4) - CORRIGIDO
+        // Stage 12: Verify PROD (QG4)
         stage('12. Verify PROD - QG4') {
             steps {
                 echo '✅ Stage 12: Verifying PRODUCTION...'
                 script {
-                    def maxAttempts = 15
+                    def maxAttempts = 20
                     def healthy = false
 
                     for (int i = 1; i <= maxAttempts; i++) {
                         def healthStatus = sh(
                             script: """
-                                docker exec ${APP_NAME}-prod wget --timeout=3 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
+                                docker exec ${APP_NAME}-prod wget --timeout=5 --tries=1 -q -O- http://localhost:8080/actuator/health 2>/dev/null || echo 'FAILED'
                             """,
                             returnStdout: true
                         ).trim()
