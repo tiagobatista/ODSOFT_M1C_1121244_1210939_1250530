@@ -1,5 +1,5 @@
 package pt.psoft.g1.psoftg1.authormanagement.model.SQL;
-;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
