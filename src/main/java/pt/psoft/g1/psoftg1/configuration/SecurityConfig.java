@@ -185,6 +185,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/lendings/search").hasAnyRole(Role.LIBRARIAN)
                         //end lendings
                         // Admin has access to all endpoints
+                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/**").hasRole(Role.ADMIN)
                         .anyRequest().authenticated()
 
