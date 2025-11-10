@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
-            <version>20220608.1</version>
+            <version>20240325.1</version>
         </dependency>
 
         <!-- Web client -->
@@ -383,7 +383,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.10.0.2594</version>
+                <version>5.2.0.4988</version>
             </plugin>
         </plugins>
     </build>
