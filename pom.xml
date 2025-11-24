@@ -119,7 +119,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <!-- validation of requests -->
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
-            <version>20220608.1</version>
+            <version>20240325.1</version>
         </dependency>
 
         <!-- Web client -->
@@ -383,7 +383,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.10.0.2594</version>
+                <version>5.3.0.6276</version>
             </plugin>
         </plugins>
     </build>
